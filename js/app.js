@@ -29,8 +29,8 @@ function generateCards() {
 }
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length
-        , temporaryValue, randomIndex;
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
@@ -97,7 +97,6 @@ function removeOpenCards() {
     openCards = [];
 }
 
-});
 // update moves
 function updateMoves() {
     moves += 1;
@@ -151,9 +150,12 @@ function playGame() {
 function showResults() {
     $('#sucess-result').empty();
     timer.pause();
-            <span class="score-titles">Moves:</span>
+   var scoreBoard = `
+        <p class="success">YOU MATCHED ALL THE CARDS!</p>
+        <p>
+            <span class="score-titles">Total Moves:</span>
             <span class="score-values">${moves}</span>
-            <span class="score-titles">Time:</span>
+            <span class="score-titles">Time Taken:</span>
             <span class="score-values">${timer.getTimeValues().toString()}</span>
         </p>
         <div class="text-center margin-top-2">
@@ -161,16 +163,16 @@ function showResults() {
                 <i class="fa fa-star fa-3x"></i>
              </div>
              <div class="star">
-                <i class="fa ${ (moves > 23) ? "fa-star-o" : "fa-star"}  fa-3x"></i>
+                <i class="fa ${ (moves > 24) ? "fa-star-o" : "fa-star"}  fa-3x"></i>
              </div>
             <div class="star">
-                <i class="fa ${ (moves > 14) ? "fa-star-o" : "fa-star"} fa-3x"></i>
+                <i class="fa ${ (moves > 15) ? "fa-star-o" : "fa-star"} fa-3x"></i>
              </div>
         </div>
         <div class="text-center margin-top-2" id="restart">
             <i class="fa fa-repeat fa-2x"></i>
-          </div>
-    `;
+          </div>`
+    ;
     $('#game-deck')[0].style.display = "none";
     $('#sucess-result')[0].style.display = "block";
     $('#sucess-result').append($(scoreBoard));
