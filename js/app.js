@@ -9,18 +9,18 @@ let match_found = 0;
 // check when first card is opened
 let game_started = false;
 
-// timer object
+// create a timer
 let timer = new Timer();
 timer.addEventListener('secondsUpdated', function (e) {$('#timer').html(timer.getTimeValues().toString());
 });
 
-// reference to reset button
+// creates a rest game button
 $('#reset-button').click(resetGame);
 // create and append card html
 function createCard(card) {
     $('#deck').append(`<li class="card animated"><i class="fa ${card}"></i></li>`);
 }
-// generate random cards on the deck
+// create card deck
 function generateCards() {
     for (var i = 0; i < 2; i++) {
         cardLists = shuffle(cardLists);
@@ -29,8 +29,8 @@ function generateCards() {
 }
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length
-        , temporaryValue, randomIndex;
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
@@ -46,7 +46,7 @@ openCards = [];
 // card functionality
 function toggleCard() {
 
-    // start the timer when first card is opened
+    // starts timer when first card is opened
     if (game_started === false) {
         game_started = true;
         timer.start();
@@ -97,22 +97,21 @@ function removeOpenCards() {
     openCards = [];
 }
 
-});
 // update moves
 function updateMoves() {
     moves += 1;
     $('#moves').html(`${moves} Moves`);
-    if (moves == 24) {
+    if (moves === 24) {
         addBlankStar();
     }
-    else if (moves == 15) {
+    else if (moves === 16) {
         addBlankStar();
     }
 }
 // check whether the game is finished or not
 function checkWin() {
     match_found += 1;
-    if (match_found == 8) {
+    if (match_found === 8) {
         showResults();
     }
 }
@@ -135,7 +134,7 @@ function resetGame() {
     $('#stars').empty();
     $('#game-deck')[0].style.display = "";
     $('#sucess-result')[0].style.display = "none";
-    game_started=false;
+    game_started = false;
     timer.stop();
     $('#timer').html("00:00:00");
     playGame();
@@ -147,13 +146,16 @@ function playGame() {
     $('#moves').html("0 Moves");
     addStars(3);
 }
-// shows result on end game
+// shows result on end game clears out game deck, stop timer, add elements to show game results
 function showResults() {
     $('#sucess-result').empty();
     timer.pause();
-            <span class="score-titles">Moves:</span>
+   var scoreBoard = `
+        <p class="success">YOU MATCHED ALL THE CARDS!</p>
+        <p>
+            <span class="score-titles">Total Moves:</span>
             <span class="score-values">${moves}</span>
-            <span class="score-titles">Time:</span>
+            <span class="score-titles">Time Taken:</span>
             <span class="score-values">${timer.getTimeValues().toString()}</span>
         </p>
         <div class="text-center margin-top-2">
@@ -161,16 +163,19 @@ function showResults() {
                 <i class="fa fa-star fa-3x"></i>
              </div>
              <div class="star">
-                <i class="fa ${ (moves > 23) ? "fa-star-o" : "fa-star"}  fa-3x"></i>
+                <i class="fa ${ (moves > 24) ? "fa-star-o" : "fa-star"}  fa-3x"></i>
              </div>
             <div class="star">
-                <i class="fa ${ (moves > 14) ? "fa-star-o" : "fa-star"} fa-3x"></i>
+                <i class="fa ${ (moves > 16) ? "fa-star-o" : "fa-star"} fa-3x"></i>
              </div>
         </div>
         <div class="text-center margin-top-2" id="restart">
             <i class="fa fa-repeat fa-2x"></i>
-          </div>
-    `;
+          </div>`
+    ;
+    var confettiSettings = { target: 'my-canvas' };
+    var confetti = new ConfettiGenerator(confettiSettings);
+    confetti.render();
     $('#game-deck')[0].style.display = "none";
     $('#sucess-result')[0].style.display = "block";
     $('#sucess-result').append($(scoreBoard));
