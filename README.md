@@ -1,20 +1,25 @@
-# Memory Game Project
+# Lenny's Brainy Memory Game
 
-## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
 
-## Instructions
+## How to Play:
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+* The goal is to match all the cards together and win the game.
 
-To get started, open `js/app.js` and start building out the app's functionality
+1. Start by clicking on two cards, if they match, look for another pair of cards. If cards are not a pair, try again.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+2. Keep matching up pairs until all cards are matched and faced up.
 
-## Contributing
+3. You must match all cards to complete the game.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+4. Once the game is complete, the game grid will drop=off and show results. From here you can play again if you wish, trying to improve your score.
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+## Tools Used:
+
+* Getting started Udacity excersize:
+  * https://github.com/udacity/fend-project-memory-game (shuffle cards js, beginning HTML and CSS code)
+
+* Background image taken from: http://www.pngall.com/wp-content/uploads/2016/04/Brain-PNG-Image.png
+* confetti
+* Timer used: Easytimer.js by albert-gonzalez. 
+*
