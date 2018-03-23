@@ -2,12 +2,6 @@ html {
     box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: inherit;
-}
-
 html,
 body {
     width: 100%;
@@ -22,8 +16,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
-    /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
 }
 
@@ -42,7 +34,7 @@ h1 {
 
 
 /*
- * Styles for the deck of cards
+ * Deck of cards
  */
 
 .deck {
@@ -91,7 +83,7 @@ h1 {
 
 
 /*
- * Styles for the Score Panel
+ * Style for the Score Panel
  */
 
 .score-panel {
