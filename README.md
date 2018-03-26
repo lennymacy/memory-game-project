@@ -19,7 +19,12 @@
 * Getting started Udacity excersize:
   * https://github.com/udacity/fend-project-memory-game (shuffle cards js, beginning HTML and CSS code)
 
+*  Research materials included: github, W3Schools, youtube javascript & jquery tutorials  
+
 * Background image taken from: http://www.pngall.com/wp-content/uploads/2016/04/Brain-PNG-Image.png
-* confetti
+
 * Timer used: Easytimer.js by albert-gonzalez. 
-*
+
+* TO DO's:
+    *  Improve animations using animateCSS
+    *  Add background confetti on the score-panel using a confetti generator:  https://agezao.github.io/confetti-gen…
