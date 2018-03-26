@@ -1,32 +1,32 @@
-/*
- * Create a list that holds all of your cards
- */
+// Create a list that holds all of your cards and set fonts
 let cardLists = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-car", "fa-gear", "fa-bicycle", "fa-key"];
-// to store number of moves and matches found
+
+//create variables: move counter, match counter, and game start
 let moves = 0;
 let match_found = 0;
-
-// check when first card is opened
 let game_started = false;
 
-// create a timer
+// timer using easytimer.js on Github
 let timer = new Timer();
 timer.addEventListener('secondsUpdated', function (e) {$('#timer').html(timer.getTimeValues().toString());
 });
 
-// creates a rest game button
+// reset game click
 $('#reset-button').click(resetGame);
-// create and append card html
+
+// function to create cards by appending UL to add each LI for the card deck
 function createCard(card) {
     $('#deck').append(`<li class="card animated"><i class="fa ${card}"></i></li>`);
 }
-// create card deck
+
+// function to generte cards and call the shuffle function for initial setup of deck
 function generateCards() {
     for (var i = 0; i < 2; i++) {
         cardLists = shuffle(cardLists);
         cardLists.forEach(createCard);
     }
 }
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -40,13 +40,12 @@ function shuffle(array) {
     }
     return array;
 }
-// Array to keep track of open cards
+// create array to keep track of all open cards to be called by matchopencard function
 openCards = [];
 
-// card functionality
+// fuction to flip card, start timer, increment move counter
 function toggleCard() {
 
-    // starts timer when first card is opened
     if (game_started === false) {
         game_started = true;
         timer.start();
@@ -58,24 +57,26 @@ function toggleCard() {
         disableCLick();
     }
     else if (openCards.length === 1) {
-        // increment moves
         updateMoves();
         $(this).toggleClass("show open");
         openCards.push($(this));
         setTimeout(matchOpenCards, 1100);
     }
 }
-// Disable click of the open Cards
+
+// function to disable click of open card
 function disableCLick() {
     openCards.forEach(function (card) {
         card.off('click');
     });
 }
-// enable click on the open card
+
+// function to enable click
 function enableClick() {
     openCards[0].click(toggleCard);
 }
-// check openCards if they match or not
+
+//function to check if open cards match
 function matchOpenCards() {
     if (openCards[0][0].firstChild.className == openCards[1][0].firstChild.className) {
         console.log("matchCard");
@@ -92,12 +93,14 @@ function matchOpenCards() {
         removeOpenCards();
     }
 }
+
 // function to remove openCards
 function removeOpenCards() {
     openCards = [];
 }
 
-// update moves
+/* function to update move counter and control number of stars
+  based on number of moves  */
 function updateMoves() {
     moves += 1;
     $('#moves').html(`${moves} Moves`);
@@ -108,25 +111,30 @@ function updateMoves() {
         addBlankStar();
     }
 }
-// check whether the game is finished or not
+
+// function to determine all cards match and end game
 function checkWin() {
     match_found += 1;
     if (match_found === 8) {
         showResults();
     }
 }
-// add blank stars
+
+// function to change stars
 function addBlankStar() {
     $('#stars').children()[0].remove();
     $('#stars').append('<li><i class="fa fa-star-o"></i></li>');
 }
-// add initial stars
+
+// function to create stars
 function addStars() {
     for (var i = 0; i < 3; i++) {
         $('#stars').append('<li><i class="fa fa-star"></i></li>');
     }
 }
-// reset the game
+
+/* function to reset game on user command called by reset game click and reset
+   initial variables */
 function resetGame() {
     moves = 0;
     match_found = 0;
@@ -139,14 +147,17 @@ function resetGame() {
     $('#timer').html("00:00:00");
     playGame();
 }
-// Init function
+
+// fuction called by playgame to initiate game play
 function playGame() {
     generateCards();
     $('.card').click(toggleCard);
     $('#moves').html("0 Moves");
     addStars(3);
 }
-// shows result on end game clears out game deck, stop timer, add elements to show game results
+
+/* function to generate score panel, clear out game deck, stop timer,
+   and add elements to display results to score panel */
 function showResults() {
     $('#sucess-result').empty();
     timer.pause();
@@ -173,9 +184,7 @@ function showResults() {
             <i class="fa fa-repeat fa-2x"></i>
           </div>`
     ;
-    var confettiSettings = { target: 'my-canvas' };
-    var confetti = new ConfettiGenerator(confettiSettings);
-    confetti.render();
+
     $('#game-deck')[0].style.display = "none";
     $('#sucess-result')[0].style.display = "block";
     $('#sucess-result').append($(scoreBoard));
